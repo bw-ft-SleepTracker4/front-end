@@ -1,19 +1,57 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import * as yup from 'yup'
+
 
 const initialLoginFormValues = {
     email: '',
     password: '',
 }
+const formSchema = yup.object().shape({
+    email: yup
+        .string()
+        .email('A VALID EMAIL IS REQUIRED')
+        .required('A VALID EMAIL IS REQUIRED'),
+    password: yup
+        .string()
+        .required()
+})
 
 const Login = props => {
 
     const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
+    const [ loginDisabled, setLoginDisabled ] = useState(true)
+    const [ errors , setErrors ] = useState()
+    const [ loggedUser, setLoggedUser ] = useState([])
+
+    useEffect(() => {
+        formSchema.isValid(loginFormValues)
+            .then ( valid => {
+                setLoginDisabled(!valid)
+            })
+    }, [loginFormValues])
 
 
     const onInputChange = e => {
         const name = e.target.name
         const value = e.target.value
+
+
+        yup 
+            .reach(formSchema, name)
+            .validate(value)
+            .then( valid => {
+                setErrors({
+                    ...errors,
+                    [name]: ''
+                })
+            })
+            .catch( error => {
+                setErrors({
+                    ...errors,
+                    error
+                })
+            })
 
         setLoginFormValues({
             ...loginFormValues,
@@ -21,6 +59,18 @@ const Login = props => {
         })
     }
 
+    const onLogin = e => {
+
+        e.preventDefault()
+
+        const newLoggedUser = {
+            email: loginFormValues.email,
+            password: loginFormValues.password
+        }
+
+        setLoggedUser(newLoggedUser)
+        setLoginFormValues(initialLoginFormValues)
+    }
 
 
     return (
@@ -45,7 +95,7 @@ const Login = props => {
                     >
                 </input></label>
             </form>
-            <button>Login</button>
+            <button onClick={onLogin} disabled={loginDisabled}>Login</button>
         </LoginContainer>
     )
 }
@@ -88,7 +138,7 @@ const LoginContainer = styled.div`
             outline: none;
             margin-top: 1%;
 
-            &:hover {
+            &:hover:enabled {
                 background-color: black;
                 color: white;
                 cursor: pointer;
