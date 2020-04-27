@@ -1,9 +1,10 @@
 import React from 'react'
 import './App.css'
+import Navigation from '../src/components/Nav'
 
 function App() {
   return (
-    <h1>Testing</h1>
+    <Navigation />
   );
 }
 
