@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import * as yup from 'yup'
 
-
-const initialLoginFormValues = {
+// INITIAL VALUES //
+const initialLoginFormValues = { 
     email: '',
     password: '',
 }
@@ -16,6 +16,8 @@ const formSchema = yup.object().shape({
         .string()
         .required('⚠️ A PASSWORD IS REQUIRED')
 })
+// -------- # --------- //
+
 
 const Login = props => {
 
@@ -26,6 +28,7 @@ const Login = props => {
     const [ PrintErr, setPrintErr ] = useState()
     const [ loggedUser, setLoggedUser ] = useState([])
 
+     // validation for submit button disabled
     useEffect(() => {
         formSchema.isValid(loginFormValues)
             .then ( valid => {
@@ -33,6 +36,7 @@ const Login = props => {
             })
     }, [loginFormValues])
 
+    // errors active
     useEffect(() => {
         if (errorsActive === true){
 
@@ -44,6 +48,7 @@ const Login = props => {
     }, [errorsActive] )
 
 
+    // INPUT EVENT HANDLER FOR EMAIL/PASSWORD +VALIDATION WITH YUP
     const onInputChange = e => {
         const name = e.target.name
         const value = e.target.value
@@ -67,6 +72,7 @@ const Login = props => {
         })
     }
 
+    // SUBMIT BUTTON EVENT HANDLER
     const onLogin = e => {
 
         e.preventDefault()
@@ -84,7 +90,8 @@ const Login = props => {
 
     return (
         <LoginContainer>
-            {PrintErr}
+            {PrintErr} {/* DISPLAYS ERROR MESSAGE */}
+
             <div className='contain'>
             <h1>Login</h1>
             <form>
@@ -108,18 +115,19 @@ const Login = props => {
             </form>
             <button onClick={onLogin} disabled={loginDisabled}>Login</button>
 
-            {loggedUser.map( u => {
+            {loggedUser.map( u => { // OPTIONAL MESSAGE
                 
                 return (
-                    <div>Welcome {u.email}!</div>
+                    <div>Welcome {u.email}!</div>  //
                 )
-            })}
+            })} 
 
             </div>
         </LoginContainer>
     )
 }
 
+// STYLED COMPONENTS //
 const LoginContainer = styled.div`
 
     .error{
