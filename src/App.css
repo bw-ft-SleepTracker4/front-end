@@ -6,8 +6,7 @@
   max-width: 100%;
 }
 
-/*  */
-
+/* Navigation */
 nav {
   display: flex;
   justify-content: center;
@@ -21,5 +20,20 @@ nav {
 .navLink {
   padding: 0 2%;
   text-decoration: none;
+  color: black;
+}
+
+/* Sign Up Form */
+.signup-form {
+  margin-top: 20px;
+}
+
+.signup-form Input {
+  margin-top: 10px;
+}
+
+#submit-btn {
+  margin-top: 15px;
+  background-color: rgb(208, 248, 253);
   color: black;
 }
