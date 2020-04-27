@@ -1,7 +1,8 @@
 import React from 'react'
 import Signup from './components/Signup'
-import './App.css'
 import Navigation from '../src/components/Nav'
+import ProtectedRoute from './components/ProtectedRoute'
+import './App.css'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setUserUsername, setUserEmail, setUserPassword } from './redux/actions/actionCreators'
@@ -17,9 +18,7 @@ function App(props) {
 
       <Switch>
         <Route path='/login'>
-          <div>
-            SIGNIN
-          </div>
+          <Login />
         </Route>
 
         <Route path='/signup'>
@@ -32,9 +31,9 @@ function App(props) {
             handlePasswordChange={handlePasswordChange} />
         </Route>
 
-        <Route path='/'>
+        <ProtectedRoute path='/'>
           <div>HOME</div>
-        </Route>
+        </ProtectedRoute>
           
       </Switch>
     </div>
