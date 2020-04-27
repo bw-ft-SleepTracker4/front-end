@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css'
 import Navigation from '../src/components/Nav'
+import Login from '../src/components/Login'
 import { Route, Switch } from 'react-router-dom'
 
 function App() {
@@ -10,9 +11,7 @@ function App() {
 
       <Switch>
         <Route path='/login'>
-          <div>
-            SIGNIN
-          </div>
+          <Login />
         </Route>
 
         <Route path='/signup'>

@@ -15,9 +15,8 @@ nav {
   background-color: rgb(208, 248, 253);
 }
 .links {
-  display: flex;
-  justify-content: center;
   flex-grow: 1;
+  text-align: center;
 }
 .navLink {
   padding: 0 2%;
