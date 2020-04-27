@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import * as yup from 'yup'
 
-
 const initialLoginFormValues = {
     email: '',
     password: '',
 }
+
 const formSchema = yup.object().shape({
     email: yup
         .string()
@@ -18,7 +18,6 @@ const formSchema = yup.object().shape({
 })
 
 const Login = props => {
-
     const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
     const [ loginDisabled, setLoginDisabled ] = useState(true)
     const [ errors , setErrors ] = useState()
@@ -31,13 +30,11 @@ const Login = props => {
             })
     }, [loginFormValues])
 
-
     const onInputChange = e => {
         const name = e.target.name
         const value = e.target.value
 
-
-        yup 
+        yup
             .reach(formSchema, name)
             .validate(value)
             .then( valid => {
@@ -60,9 +57,7 @@ const Login = props => {
     }
 
     const onLogin = e => {
-
         e.preventDefault()
-
         const newLoggedUser = [{
             email: loginFormValues.email,
             password: loginFormValues.password

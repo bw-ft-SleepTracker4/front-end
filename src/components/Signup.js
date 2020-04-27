@@ -1,4 +1,5 @@
 import React from 'react'
+import { signupUser } from './api/user'
 import {
   Form,
   Input,
@@ -7,13 +8,15 @@ import {
   Col
 } from 'reactstrap'
 
+const submitSignup = (e, email, password) => {
+  e.preventDefault()
+  signupUser(email, password).catch(err => console.error(`error: ${err}`))
+}
+
 const Signup = (props) => {
   return(
     <Container>
-      <Form className="signup-form">
-        <Col sm="12" md={{ size: 6, offset: 3 }}>
-          <Input type="name" name="username" value={props.username} onChange={props.handleUsernameChange} placeholder="Full Name" />
-        </Col>
+      <Form className="signup-form" onSubmit={submitSignup}>
         <Col sm="12" md={{ size: 6, offset: 3 }}>
           <Input type="email" name="email" value={props.email} onChange={props.handleEmailChange} placeholder="Email" />
         </Col>
