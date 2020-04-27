@@ -63,10 +63,10 @@ const Login = props => {
 
         e.preventDefault()
 
-        const newLoggedUser = {
+        const newLoggedUser = [{
             email: loginFormValues.email,
             password: loginFormValues.password
-        }
+        }]
 
         setLoggedUser(newLoggedUser)
         setLoginFormValues(initialLoginFormValues)
@@ -96,6 +96,13 @@ const Login = props => {
                 </input></label>
             </form>
             <button onClick={onLogin} disabled={loginDisabled}>Login</button>
+
+            {loggedUser.map( u => {
+                
+                return (
+                    <div>Welcome {u.email}!</div>
+                )
+            })}
         </LoginContainer>
     )
 }
