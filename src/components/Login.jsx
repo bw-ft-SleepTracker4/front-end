@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
+const initialLoginFormValues = {
+    email: '',
+    password: '',
+}
+
 const Login = props => {
+
+    const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
+
+
+    const onInputChange = e => {
+        const name = e.target.name
+        const value = e.target.value
+
+        setLoginFormValues({
+            ...loginFormValues,
+            [name]: value
+        })
+    }
+
+
 
     return (
         <LoginContainer>
@@ -11,6 +31,8 @@ const Login = props => {
                     type='text'
                     name='email'
                     placeholder='Email'
+                    value={loginFormValues.email}
+                    onChange={onInputChange}
                     >
                 </input></label>
 
@@ -18,6 +40,8 @@ const Login = props => {
                     type='password'
                     name='password'
                     placeholder='Password'
+                    value={loginFormValues.password}
+                    onChange={onInputChange}
                     >
                 </input></label>
             </form>
