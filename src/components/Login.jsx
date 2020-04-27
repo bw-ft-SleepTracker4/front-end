@@ -10,11 +10,11 @@ const initialLoginFormValues = {
 const formSchema = yup.object().shape({
     email: yup
         .string()
-        .email('A VALID EMAIL IS REQUIRED')
-        .required('A VALID EMAIL IS REQUIRED'),
+        .email('⚠️ A VALID EMAIL IS REQUIRED')
+        .required('⚠️ A VALID EMAIL IS REQUIRED'),
     password: yup
         .string()
-        .required()
+        .required('⚠️ A PASSWORD IS REQUIRED')
 })
 
 const Login = props => {
@@ -22,6 +22,8 @@ const Login = props => {
     const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
     const [ loginDisabled, setLoginDisabled ] = useState(true)
     const [ errors , setErrors ] = useState()
+    const [ errorsActive, setErrorsActive ] = useState(false)
+    const [ PrintErr, setPrintErr ] = useState()
     const [ loggedUser, setLoggedUser ] = useState([])
 
     useEffect(() => {
@@ -30,6 +32,16 @@ const Login = props => {
                 setLoginDisabled(!valid)
             })
     }, [loginFormValues])
+
+    useEffect(() => {
+        if (errorsActive === true){
+
+            setPrintErr(<div className='error'>{errors}</div>)
+            
+        } else {
+            setPrintErr()
+        }
+    }, [errorsActive] )
 
 
     const onInputChange = e => {
@@ -41,16 +53,12 @@ const Login = props => {
             .reach(formSchema, name)
             .validate(value)
             .then( valid => {
-                setErrors({
-                    ...errors,
-                    [name]: ''
-                })
+                setErrors({[name]: ''})
+                setErrorsActive(false)
             })
             .catch( error => {
-                setErrors({
-                    ...errors,
-                    error
-                })
+                setErrors(error.message)
+                setErrorsActive(true)
             })
 
         setLoginFormValues({
@@ -72,9 +80,12 @@ const Login = props => {
         setLoginFormValues(initialLoginFormValues)
     }
 
+    
 
     return (
         <LoginContainer>
+            {PrintErr}
+            <div className='contain'>
             <h1>Login</h1>
             <form>
                 <label className='inputContainer'><input 
@@ -103,11 +114,25 @@ const Login = props => {
                     <div>Welcome {u.email}!</div>
                 )
             })}
+
+            </div>
         </LoginContainer>
     )
 }
 
 const LoginContainer = styled.div`
+
+    .error{
+        background-color: red;
+        color: white;
+        font-size: .8rem;
+        text-align: center;
+        position: absolute;
+        width: 100%;
+        
+    }
+
+    .contain {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -115,16 +140,16 @@ const LoginContainer = styled.div`
     width: 100%;
     height: 80vh;
     
+        
     
 
         h1 {
             width: 100%;
-            
         }
         form {
             display: flex;
             flex-direction: column;
-            
+
             
             .inputContainer {
                 width: 100%;
@@ -155,7 +180,7 @@ const LoginContainer = styled.div`
             
         }
     
-    
+    }
 `
 
 export default Login
