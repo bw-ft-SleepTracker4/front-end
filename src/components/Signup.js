@@ -1,6 +1,11 @@
 import React from 'react'
+import { signupUser } from '../api/user'
 import styled from 'styled-components'
 
+const submitSignup = (e, email, password) => {
+  e.preventDefault()
+  signupUser(email, password).catch(err => console.error(`error: ${err}`))
+}
 
 const Signup = (props) => {
   return(
