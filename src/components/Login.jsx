@@ -155,6 +155,8 @@ const LoginContainer = styled.div`
     text-align: center;
     width: 100%;
     height: 100vh;
+    font-family: 'Raleway';
+    font-size: .8rem;
     
         
         .loginForm{
@@ -171,6 +173,9 @@ const LoginContainer = styled.div`
             h1 {
             width: 100%;
             color: white;
+            font-family: 'Raleway';
+            margin-bottom: 5%;
+
             }
             form {
             display: flex;
@@ -189,7 +194,7 @@ const LoginContainer = styled.div`
         }
 
         button {
-            width: 10%;
+            width: 15%;
             align-self: center;
             padding: 1%;
             border-radius: 15px;

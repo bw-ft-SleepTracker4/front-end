@@ -17,7 +17,7 @@ const LandingPage = props => {
                 <img src={require('../assets/landingImg.jpg')} alt='stars' />
             </div>
             <h3 className='ftBlock'>FEATURES</h3>
-            <div className='features'>
+            <section id='features'>
                 <div className='ftCard'>
                     <h4>Title</h4>
                     <h6>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut, necessitatibus!</h6>
@@ -32,7 +32,36 @@ const LandingPage = props => {
                     <h4>Title</h4>
                     <h6>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut, necessitatibus!</h6>
                 </div>
+            </section>
+            <h3 className='ftBlock'>TESTIMONIALS</h3>
+            <section id='testimonials'>
+                <div className='testify'>
+                    <div className='tImg'>
+                        <img src={require('../assets/portraitOne.jpg')} alt='person portrait'/>
+                    </div>
+                    <div className='tInfo'>
+                        <h5>Name</h5>
+                        <h6>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum sint ipsam vel.</h6>
+                    </div>
+                </div>
+
+                <div className='testify'>
+                    <div className='tImg'>
+                        <img src={require('../assets/portraitTwo.jpg')} alt='person portrait'/>
+                    </div>
+                    <div className='tInfo'>
+                        <h5>Name</h5>
+                        <h6>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum sint ipsam vel.</h6>
+                    </div>
+                </div>
+            </section>
+            <div className='ctaFooter'>
+                <h2>IMPROVE YOUR SLEEP TODAY</h2>
+                <Link to='/signup'><div className='ctaFooterButton'>
+                    Sign Up
+                </div></Link>
             </div>
+
         </LandingContainer>
     )
 }
@@ -92,18 +121,21 @@ const LandingContainer = styled.div`
             padding: 1% 3%;
             
         }
-    .features {
+    #features {
         display: flex;
         justify-content: space-between;
-        padding: 3% 5%;
+        padding: 10% 5%;
         
         
 
         .ftCard{
             text-align: center;
             font-family: 'Raleway';
-            
-            
+            background-color: rgb(231, 228, 228);
+            filter: drop-shadow(0 3px 4px black);
+            width: 28%;
+            border-radius: 15px;
+            padding: 3%;
 
             h4 {
                 border-bottom: 1px solid grey;
@@ -112,11 +144,90 @@ const LandingContainer = styled.div`
             }
             h6 {
                 padding-top: 6%;
-            }
-            width: 28%;
-            border: 2px solid black;
+            }    
+        }
+    }
+    #testimonials {
+        display: flex;
+        justify-content: space-between;
+        padding: 8% 5%;
+        
+        .testify{
+            width: 45%;
+            display: flex;
             padding: 3%;
+            filter: drop-shadow(0 3px 4px black);
+            background-color: rgb(243, 240, 243);
+            border-radius: 5px;
             
+
+            .tImg {
+                width: 30%;
+
+                img{
+                    border-radius: 100%;
+                }
+                
+                
+            }
+            .tInfo{
+                width: 70%;
+                margin-left: 3%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-family: 'Spartan';
+                
+                h5 {
+                    color: rgb(40, 36, 83);
+                    font-weight: bold;
+                    
+                }
+                h6 {
+                    color: gray;
+                }
+            }
+        }
+
+    }
+    .ctaFooter {
+        width: 100%;
+        background-color: rgb(104, 43, 128);
+        padding: 5%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 3%;
+        
+        
+        h2 {
+            color: white;
+            font-family: 'Montserrat';
+            
+        }
+
+        a {
+            color: black;
+            text-decoration: none;
+            width: 20%;
+            font-family: 'Raleway';
+            margin-top: 3%;
+
+                .ctaFooterButton {
+                background-color: white;
+                width: 100%;
+                cursor: pointer;   
+                border-radius: 10px;
+                padding: 2%;
+                
+                &:hover {
+                    background-color: black;
+                    color: white;
+                }
+            }
+
         }
     }
 `
