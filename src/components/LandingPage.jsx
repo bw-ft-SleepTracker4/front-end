@@ -124,14 +124,14 @@ const LandingContainer = styled.div`
     #features {
         display: flex;
         justify-content: space-between;
-        padding: 10% 5%;
+        padding: 8% 5%;
         
         
 
         .ftCard{
             text-align: center;
             font-family: 'Raleway';
-            background-color: rgb(231, 228, 228);
+            background-color: white;
             filter: drop-shadow(0 3px 4px black);
             width: 28%;
             border-radius: 15px;
@@ -223,7 +223,7 @@ const LandingContainer = styled.div`
                 padding: 2%;
                 
                 &:hover {
-                    background-color: black;
+                    background-color: #1bf895;
                     color: white;
                 }
             }
