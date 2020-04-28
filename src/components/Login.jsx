@@ -109,7 +109,7 @@ const Login = props => {
 
 // STYLED COMPONENTS //
 const LoginContainer = styled.div`
-    background-image: url('https://images.pexels.com/photos/1361215/pexels-photo-1361215.jpeg');
+    background-image: url('/LoginBg.jpg');
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center;

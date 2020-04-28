@@ -31,13 +31,9 @@ const Signup = (props) => {
 
 // STYLED-COMPONENTS //
 const SignupContainer = styled.div`
-  background-image: url('https://images.pexels.com/photos/627823/pexels-photo-627823.jpeg');
-  /* background-position: center; */
+  background-image: url('/SignupBg.jpg');
   background-size: 100% 100%;
   
-  
-  
-
   .contain {
     display: flex;
     justify-content: center;
