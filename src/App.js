@@ -3,7 +3,8 @@ import Signup from './components/Signup'
 import Navigation from '../src/components/Nav'
 import ProtectedRoute from './components/ProtectedRoute'
 import Login from './components/Login'
-import Homepage from '../src/components/Homepage'
+import LandingPage from './components/LandingPage'
+import Homepage from './components/Homepage'
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -18,14 +19,16 @@ function App(props) {
       <Navigation /> {/* GLOBAL NAVIGATION */}
 
       <Switch>
+        <Route exact path='/' component={LandingPage} />
+
         <Route path='/login'>
           <Login
             user={props.user}
+            setUser={setUserLogin}
             email={props.email}
             handleEmailChange={handleEmailChange}
             password={props.password}
-            handlePasswordChange={handlePasswordChange}
-            setUser={setUserLogin} />
+            handlePasswordChange={handlePasswordChange} />
         </Route>
 
         <Route path='/signup'>
@@ -36,9 +39,7 @@ function App(props) {
             handlePasswordChange={handlePasswordChange} />
         </Route>
 
-        <ProtectedRoute path='/'>
-          <Homepage />
-        </ProtectedRoute>
+        <ProtectedRoute path='/' component={Homepage} />
           
       </Switch>
     </div>
