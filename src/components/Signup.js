@@ -1,11 +1,15 @@
 import React from 'react'
 import { signupUser } from '../api/user'
+import { useHistory } from 'react-router'
 import styled from 'styled-components'
 
 const Signup = (props) => {
-  const submitSignup = e => {
+  const history = useHistory()
+
+  const submitSignup = async e => {
     e.preventDefault()
-    signupUser(props.email, props.password).catch(err => console.error(`error: ${err}`))
+    await signupUser(props.email, props.password).catch(err => console.error(`error: ${err}`))
+    history.push('/home')
   }
 
   return(

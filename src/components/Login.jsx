@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router'
 import { loginUser } from '../api/user'
 import styled from 'styled-components'
 import * as yup from 'yup'
@@ -18,6 +19,7 @@ const Login = props => {
     const [ errors , setErrors ] = useState()
     const [ errorsActive, setErrorsActive ] = useState(false)
     const [ PrintErr, setPrintErr ] = useState()
+    const history = useHistory()
 
      // validation for submit button disabled
     useEffect(() => {
@@ -66,9 +68,10 @@ const Login = props => {
     }
 
     // SUBMIT BUTTON EVENT HANDLER
-    const onLogin = e => {
+    const onLogin = async e => {
         e.preventDefault()
-        loginUser(props.email, props.password).catch(err => console.error(`error: ${err}`))
+        await loginUser(props.email, props.password).catch(err => console.error(`error: ${err}`))
+        history.push('/home')
     }
 
     return (
