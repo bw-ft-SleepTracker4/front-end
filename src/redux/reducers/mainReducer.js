@@ -2,6 +2,7 @@ import actionTypes from '../actions/actionTypes'
 
 export const initialState = () => ({
   user: {
+    name: '',
     email: '',
     password: '',
     hasToken: localStorage.getItem('token') || null
@@ -10,6 +11,14 @@ export const initialState = () => ({
 
 export const reducer = (state = initialState(), action) => {
   switch(action.type) {
+    case actionTypes.SET_USER_NAME:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          name: action.payload
+        }
+      }
     case actionTypes.SET_USER_EMAIL:
       return {
         ...state,

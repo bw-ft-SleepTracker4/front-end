@@ -8,7 +8,7 @@ const Navigation = props => {
         <nav className='navC'>
             <h4 className='logo'><Link className='navLink' to='/'>SleepTracker</Link></h4>
             <div className='links'>
-                <Link className='navLink' to='/home'>Home</Link>
+                <Link className='navLink' to='/home'>Dashboard</Link>
                 {state.user.hasToken ?
                     <Link className='navLink' to='/'>Log Out</Link>
                 :

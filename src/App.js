@@ -8,9 +8,10 @@ import Homepage from './components/Homepage'
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setUserEmail, setUserPassword, setUserLogin } from './redux/actions/actionCreators'
+import { setUserName, setUserEmail, setUserPassword, setUserLogin } from './redux/actions/actionCreators'
 
 function App(props) {
+  const handleNameChange = e => props.setUserName(e.target.value)
   const handleEmailChange = e => props.setUserEmail(e.target.value)
   const handlePasswordChange = e => props.setUserPassword(e.target.value)
 
@@ -33,6 +34,8 @@ function App(props) {
 
         <Route path='/signup'>
           <Signup
+            name={props.name}
+            handleNameChange={handleNameChange}
             email={props.email} 
             handleEmailChange={handleEmailChange} 
             password={props.password}
@@ -49,9 +52,10 @@ function App(props) {
 const mapStateToProps = state => {
   return {
     user: state.user,
+    name: state.user.name,
     email: state.user.email,
     password: state.user.password
   }
 }
 
-export default connect(mapStateToProps, { setUserEmail, setUserPassword, setUserLogin })(App)
+export default connect(mapStateToProps, { setUserName, setUserEmail, setUserPassword, setUserLogin })(App)

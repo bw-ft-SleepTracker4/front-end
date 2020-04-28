@@ -37,7 +37,7 @@ const BarGraph = () => {
           height={300}
           yDomain={[yDomain.min, yDomain.max]}
         >
-          <BarSeries className="vertical-bar-series-example" data={myDATA} onValueMouseOver={(datapoint, { event }) => { console.log(event) }} />
+          <BarSeries className="vertical-bar-series-example" data={myDATA} onValueMouseOver={(datapoint, { event }) => { }} />
           <XAxis />
           <YAxis />
         </XYPlot>

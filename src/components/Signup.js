@@ -8,7 +8,7 @@ const Signup = (props) => {
 
   const submitSignup = async e => {
     e.preventDefault()
-    await signupUser(props.email, props.password).catch(err => console.error(`error: ${err}`))
+    await signupUser(props.name, props.email, props.password).catch(err => console.error(`error: ${err}`))
     history.push('/home')
   }
 
@@ -18,6 +18,7 @@ const Signup = (props) => {
         <div className='signupForm'>
           <h1>Sign Up</h1>
           <form>
+              <label className='inputContainer'><input type="text" name="name" value={props.name} onChange={props.handleNameChange} placeholder="Name" /></label>
               <label className='inputContainer'><input type="email" name="email" value={props.email} onChange={props.handleEmailChange} placeholder="Email" /></label>
               <label className='inputContainer'><input type="password" name="password" value={props.password} onChange={props.handlePasswordChange} placeholder="Password" /></label>
           </form>
