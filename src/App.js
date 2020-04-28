@@ -3,6 +3,7 @@ import Signup from './components/Signup'
 import Navigation from '../src/components/Nav'
 import ProtectedRoute from './components/ProtectedRoute'
 import Login from './components/Login'
+import Homepage from '../src/components/Homepage'
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -33,7 +34,7 @@ function App(props) {
         </Route>
 
         <ProtectedRoute path='/'>
-          <div>HOME</div>
+          <Homepage />
         </ProtectedRoute>
           
       </Switch>

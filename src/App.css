@@ -7,24 +7,34 @@
 }
 
 /* Navigation */
-nav {
+.navC {
+  color: white;
   display: flex;
-  justify-content: center;
-  padding: 2%;
-  background-color: rgb(208, 248, 253);
+  padding: 1.2%;
+  background-color: rgb(60, 54, 119);
+}
+.logo{
+  font-size: 2rem;
 }
 .links {
   flex-grow: 1;
-  text-align: center;
+  display: flex;
+  justify-content: flex-end;
+  font-size: .9rem;
 }
 .navLink {
-  padding: 0 2%;
+  margin: 0 2%;
   text-decoration: none;
-  color: black;
+  color: white;
+  align-self: center;
+}
+.navLink:hover {
+  color: rgb(185, 184, 184);
+  text-decoration: none;
 }
 
 /* Sign Up Form */
-.signup-form {
+/* .signup-form {
   margin-top: 20px;
 }
 
@@ -36,4 +46,4 @@ nav {
   margin-top: 15px;
   background-color: rgb(208, 248, 253);
   color: black;
-}
+} */
