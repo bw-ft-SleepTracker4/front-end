@@ -31,6 +31,7 @@ const Signup = (props) => {
 // STYLED-COMPONENTS //
 const SignupContainer = styled.div`
   background-image: url('https://images.pexels.com/photos/627823/pexels-photo-627823.jpeg');
+  /* background-position: center; */
   background-size: 100% 100%;
   
   
@@ -42,13 +43,15 @@ const SignupContainer = styled.div`
     text-align: center;
     width: 100%;
     height: 100vh;
+    font-family: 'Raleway';
+    font-size: .8rem;
     
         
     .signupForm{
       width: 50%;
       height: 60%;
       align-self: center;
-      background-color: rgba(26, 26, 26, 0.481);
+      background-color: rgba(26, 26, 26, 0.581);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -59,7 +62,10 @@ const SignupContainer = styled.div`
         h1 {
           width: 100%;
           color: white;
+          font-family: 'Raleway';
+          margin-bottom: 5%;
         }
+
         form {
           display: flex;
           flex-direction: column;
@@ -76,7 +82,7 @@ const SignupContainer = styled.div`
             }
         }
         button {
-            width: 10%;
+            width: 15%;
             align-self: center;
             padding: 1%;
             border-radius: 15px;
