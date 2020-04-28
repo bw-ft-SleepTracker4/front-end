@@ -15,13 +15,23 @@ const formSchema = yup.object().shape({
 const Login = props => {
     const [ loginDisabled, setLoginDisabled ] = useState(true)
     const [ errors , setErrors ] = useState()
+    const [ errorsActive, setErrorsActive ] = useState(false)
+    const [ PrintErr, setPrintErr ] = useState()
 
     useEffect(() => {
         formSchema.isValid(props.user)
             .then ( valid => {
                 setLoginDisabled(!valid)
             })
-    }, [props.user])
+
+        if (errorsActive === true){
+            setPrintErr(<div className='error'>{errors}</div>)
+            
+        } else {
+            setPrintErr()
+        }
+
+    }, [errors, errorsActive, props.user])
 
     const onInputChange = e => {
         const name = e.target.name
@@ -41,12 +51,14 @@ const Login = props => {
                     ...errors,
                     [name]: ''
                 })
+                setErrorsActive(false)
             })
             .catch( error => {
                 setErrors({
                     ...errors,
                     error
                 })
+                setErrorsActive(true)
             })
     }
 
@@ -57,6 +69,7 @@ const Login = props => {
 
     return (
         <LoginContainer>
+            {PrintErr}
             <h1>Login</h1>
             <form>
                 <label className='inputContainer'><input 
