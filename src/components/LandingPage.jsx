@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const Homepage = props => {
+const LandingPage = props => {
 
     return (
         <LandingContainer>
@@ -121,4 +121,4 @@ const LandingContainer = styled.div`
     }
 `
 
-export default Homepage
+export default LandingPage
