@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-export const client = authToken => {
+export const client = () => {
+  const authToken = localStorage.getItem('token')
   return axios.create({
     headers: {
       authorization: authToken
@@ -13,13 +14,18 @@ export const signupUser = async (email, password) => {
   client()
     .post('/auth/register', { username: email, password: password })
     .then(res => {
-      console.log(res.data)
       // TODO: potentially return user to redux store
+      console.log(res.data)
       localStorage.setItem('token', res.data.token)
   })
 }
 
 export const loginUser = async (email, password) => {
   client()
-    .post('/auth/')
+    .post('/auth/login', { username: email, password })
+    .then(res => {
+      // TODO: potentially return user to redux store
+      console.log(res.data)
+      localStorage.setItem('token', res.data.token)
+    })
 }
