@@ -120,5 +120,5 @@ const LandingContainer = styled.div`
         }
     }
 `
-
+        
 export default LandingPage

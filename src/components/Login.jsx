@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router'
+import { loginUser } from '../api/user'
 import styled from 'styled-components'
 import * as yup from 'yup'
 
-// INITIAL VALUES //
-const initialLoginFormValues = { 
-    email: '',
-    password: '',
-}
 const formSchema = yup.object().shape({
     email: yup
         .string()
@@ -16,77 +13,66 @@ const formSchema = yup.object().shape({
         .string()
         .required('⚠️ A PASSWORD IS REQUIRED')
 })
-// -------- # --------- //
-
 
 const Login = props => {
-
-    const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
     const [ loginDisabled, setLoginDisabled ] = useState(true)
     const [ errors , setErrors ] = useState()
     const [ errorsActive, setErrorsActive ] = useState(false)
     const [ PrintErr, setPrintErr ] = useState()
-    const [ loggedUser, setLoggedUser ] = useState([])
+    const history = useHistory()
 
      // validation for submit button disabled
     useEffect(() => {
-        formSchema.isValid(loginFormValues)
+        formSchema.isValid(props.user)
             .then ( valid => {
                 setLoginDisabled(!valid)
             })
-    }, [loginFormValues])
-
-    // errors active
-    useEffect(() => {
+      
         if (errorsActive === true){
-
             setPrintErr(<div className='error'>{errors}</div>)
             
         } else {
             setPrintErr()
         }
-    }, [errorsActive] )
 
+    }, [errors, errorsActive, props.user])
 
     // INPUT EVENT HANDLER FOR EMAIL/PASSWORD +VALIDATION WITH YUP
     const onInputChange = e => {
         const name = e.target.name
         const value = e.target.value
+        
+        if(name === 'email') {
+            props.handleEmailChange(e)
+        } else {
+            props.handlePasswordChange(e)
+        }
 
-
-        yup 
+        yup
             .reach(formSchema, name)
             .validate(value)
             .then( valid => {
-                setErrors({[name]: ''})
+                setErrors({
+                    ...errors,
+                    [name]: ''
+                })
                 setErrorsActive(false)
             })
             .catch( error => {
-                setErrors(error.message)
-                setErrorsActive(true)
+                setErrors({
+                    ...errors,
+                    error
+                })
+                setErrorsActive(false)
             })
-
-        setLoginFormValues({
-            ...loginFormValues,
-            [name]: value
-        })
     }
 
     // SUBMIT BUTTON EVENT HANDLER
-    const onLogin = e => {
-
+    const onLogin = async e => {
         e.preventDefault()
-
-        const newLoggedUser = [{
-            email: loginFormValues.email,
-            password: loginFormValues.password
-        }]
-
-        setLoggedUser(newLoggedUser)
-        setLoginFormValues(initialLoginFormValues)
+        await loginUser(props.email, props.password).catch(err => console.error(`error: ${err}`))
+        history.push('/home')
     }
-
-    
 
     return (
         <LoginContainer>
@@ -96,35 +82,26 @@ const Login = props => {
                 <div className='loginForm'>
                     <h1>Login</h1>
                     <form>
-                    <label className='inputContainer'><input 
-                    type='text'
-                    name='email'
-                    placeholder='Email'
-                    value={loginFormValues.email}
-                    onChange={onInputChange}
-                    >
-                    </input></label>
+                    <label className='inputContainer'>
+                        <input
+                            type='text'
+                            name='email'
+                            placeholder='Email'
+                            value={props.user.email}
+                            onChange={onInputChange} />
+                    </label>
 
-                    <label className='inputContainer'><input
-                    type='password'
-                    name='password'
-                    placeholder='Password'
-                    value={loginFormValues.password}
-                    onChange={onInputChange}
-                    >
-                    </input></label>
-                </form>
-                 <button onClick={onLogin} disabled={loginDisabled}>Login</button>
-
-                {loggedUser.map( u => { // OPTIONAL MESSAGE
-                
-                    return (
-                        <div>Welcome {u.email}!</div>  //
-                    )
-                })} 
-
+                    <label className='inputContainer'>
+                        <input
+                            type='password'
+                            name='password'
+                            placeholder='Password'
+                            value={props.user.password}
+                            onChange={onInputChange} />
+                    </label>
+                    </form>
+                    <button onClick={onLogin} disabled={loginDisabled}>Login</button>
                 </div>
-
             </div>
         </LoginContainer>
     )
