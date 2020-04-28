@@ -38,7 +38,7 @@ function App(props) {
             password={props.password}
             handlePasswordChange={handlePasswordChange} />
         </Route>
-
+    
         <ProtectedRoute path='/' component={Homepage} />
           
       </Switch>

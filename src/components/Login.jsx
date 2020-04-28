@@ -109,7 +109,12 @@ const Login = props => {
 
 // STYLED COMPONENTS //
 const LoginContainer = styled.div`
-    background-image: linear-gradient(130deg, DarkSlateBlue 0%, DarkSalmon 100%);
+    background-image: url('https://images.pexels.com/photos/1361215/pexels-photo-1361215.jpeg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    
+  
     
     .error{
         background-color: rgb(223, 71, 71);
@@ -133,10 +138,11 @@ const LoginContainer = styled.div`
             width: 50%;
             height: 60%;
             align-self: center;
-            background-color: rgba(26, 26, 26, 0.381);
+            background-color: rgba(32, 32, 32, 0.401);
             display: flex;
             flex-direction: column;
             justify-content: center;
+            backdrop-filter: blur(2px);
             
  
             h1 {
