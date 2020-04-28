@@ -5,12 +5,14 @@ import * as yup from 'yup'
 const formSchema = yup.object().shape({
     email: yup
         .string()
-        .email('A VALID EMAIL IS REQUIRED')
-        .required('A VALID EMAIL IS REQUIRED'),
+        .email('⚠️ A VALID EMAIL IS REQUIRED')
+        .required('⚠️ A VALID EMAIL IS REQUIRED'),
     password: yup
         .string()
-        .required()
+        .required('⚠️ A PASSWORD IS REQUIRED')
 })
+// -------- # --------- //
+
 
 const Login = props => {
     const [ loginDisabled, setLoginDisabled ] = useState(true)
@@ -18,12 +20,13 @@ const Login = props => {
     const [ errorsActive, setErrorsActive ] = useState(false)
     const [ PrintErr, setPrintErr ] = useState()
 
+     // validation for submit button disabled
     useEffect(() => {
         formSchema.isValid(props.user)
             .then ( valid => {
                 setLoginDisabled(!valid)
             })
-
+      
         if (errorsActive === true){
             setPrintErr(<div className='error'>{errors}</div>)
             
@@ -33,6 +36,7 @@ const Login = props => {
 
     }, [errors, errorsActive, props.user])
 
+    // INPUT EVENT HANDLER FOR EMAIL/PASSWORD +VALIDATION WITH YUP
     const onInputChange = e => {
         const name = e.target.name
         const value = e.target.value
@@ -58,30 +62,35 @@ const Login = props => {
                     ...errors,
                     error
                 })
-                setErrorsActive(true)
+                setErrorsActive(false)
             })
     }
 
+    // SUBMIT BUTTON EVENT HANDLER
     const onLogin = e => {
         e.preventDefault()
     }
 
+    
 
     return (
         <LoginContainer>
-            {PrintErr}
-            <h1>Login</h1>
-            <form>
-                <label className='inputContainer'><input 
+            {PrintErr} {/* DISPLAYS ERROR MESSAGE */}
+
+            <div className='contain'>
+                <div className='loginForm'>
+                    <h1>Login</h1>
+                    <form>
+                    <label className='inputContainer'><input
                     type='text'
                     name='email'
                     placeholder='Email'
                     value={props.user.email}
                     onChange={onInputChange}
                     >
-                </input></label>
+                    </input></label>
 
-                <label className='inputContainer'><input
+                    <label className='inputContainer'><input
                     type='password'
                     name='password'
                     placeholder='Password'
@@ -89,30 +98,55 @@ const Login = props => {
                     onChange={onInputChange}
                     >
                 </input></label>
-            </form>
-            <button onClick={onLogin} disabled={loginDisabled}>Login</button>
+                </form>
+                <button onClick={onLogin} disabled={loginDisabled}>Login</button>
+
+                </div>
+
+            </div>
         </LoginContainer>
     )
 }
 
+// STYLED COMPONENTS //
 const LoginContainer = styled.div`
+    background-image: linear-gradient(130deg, DarkSlateBlue 0%, DarkSalmon 100%);
+    
+    .error{
+        background-color: rgb(223, 71, 71);
+        color: white;
+        font-size: .8rem;
+        text-align: center;
+        position: absolute;
+        width: 100%;
+        
+    }
+
+    .contain {
     display: flex;
     justify-content: center;
-    flex-direction: column;
     text-align: center;
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     
-    
-
-        h1 {
-            width: 100%;
-            
-        }
-        form {
+        
+        .loginForm{
+            width: 50%;
+            height: 60%;
+            align-self: center;
+            background-color: rgba(26, 26, 26, 0.381);
             display: flex;
             flex-direction: column;
+            justify-content: center;
             
+ 
+            h1 {
+            width: 100%;
+            color: white;
+            }
+            form {
+            display: flex;
+            flex-direction: column;
             
             .inputContainer {
                 width: 100%;
@@ -120,11 +154,12 @@ const LoginContainer = styled.div`
                 
                 input {
                     padding: 1%;
-                    width: 20%;
+                    width: 40%;
                     
                 }
             }
         }
+
         button {
             width: 10%;
             align-self: center;
@@ -133,17 +168,14 @@ const LoginContainer = styled.div`
             outline: none;
             margin-top: 1%;
 
-            &:hover:enabled {
-                background-color: black;
-                color: white;
-                cursor: pointer;
-                
-                
-            }
-            
+                &:hover:enabled {
+                    background-color: black;
+                    color: white;
+                    cursor: pointer;  
+                }
+
         }
-    
-    
+    }
 `
 
 export default Login
