@@ -6,7 +6,7 @@ import Login from './components/Login'
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setUserEmail, setUserPassword } from './redux/actions/actionCreators'
+import { setUserEmail, setUserPassword, setUserLogin } from './redux/actions/actionCreators'
 
 function App(props) {
   const handleEmailChange = e => props.setUserEmail(e.target.value)
@@ -18,7 +18,13 @@ function App(props) {
 
       <Switch>
         <Route path='/login'>
-          <Login />
+          <Login
+            user={props.user}
+            email={props.email}
+            handleEmailChange={handleEmailChange}
+            password={props.password}
+            handlePasswordChange={handlePasswordChange}
+            setUser={setUserLogin} />
         </Route>
 
         <Route path='/signup'>
@@ -40,9 +46,10 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    email: state.email,
-    password: state.password
+    user: state.user,
+    email: state.user.email,
+    password: state.user.password
   }
 }
 
-export default connect(mapStateToProps, { setUserEmail, setUserPassword })(App)
+export default connect(mapStateToProps, { setUserEmail, setUserPassword, setUserLogin })(App)

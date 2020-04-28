@@ -2,11 +2,6 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import * as yup from 'yup'
 
-const initialLoginFormValues = {
-    email: '',
-    password: '',
-}
-
 const formSchema = yup.object().shape({
     email: yup
         .string()
@@ -18,21 +13,25 @@ const formSchema = yup.object().shape({
 })
 
 const Login = props => {
-    const [ loginFormValues, setLoginFormValues ] = useState(initialLoginFormValues)
     const [ loginDisabled, setLoginDisabled ] = useState(true)
     const [ errors , setErrors ] = useState()
-    const [ loggedUser, setLoggedUser ] = useState([])
 
     useEffect(() => {
-        formSchema.isValid(loginFormValues)
+        formSchema.isValid(props.user)
             .then ( valid => {
                 setLoginDisabled(!valid)
             })
-    }, [loginFormValues])
+    }, [props.user])
 
     const onInputChange = e => {
         const name = e.target.name
         const value = e.target.value
+        
+        if(name === 'email') {
+            props.handleEmailChange(e)
+        } else {
+            props.handlePasswordChange(e)
+        }
 
         yup
             .reach(formSchema, name)
@@ -49,22 +48,10 @@ const Login = props => {
                     error
                 })
             })
-
-        setLoginFormValues({
-            ...loginFormValues,
-            [name]: value
-        })
     }
 
     const onLogin = e => {
         e.preventDefault()
-        const newLoggedUser = [{
-            email: loginFormValues.email,
-            password: loginFormValues.password
-        }]
-
-        setLoggedUser(newLoggedUser)
-        setLoginFormValues(initialLoginFormValues)
     }
 
 
@@ -76,7 +63,7 @@ const Login = props => {
                     type='text'
                     name='email'
                     placeholder='Email'
-                    value={loginFormValues.email}
+                    value={props.user.email}
                     onChange={onInputChange}
                     >
                 </input></label>
@@ -85,19 +72,12 @@ const Login = props => {
                     type='password'
                     name='password'
                     placeholder='Password'
-                    value={loginFormValues.password}
+                    value={props.user.password}
                     onChange={onInputChange}
                     >
                 </input></label>
             </form>
             <button onClick={onLogin} disabled={loginDisabled}>Login</button>
-
-            {loggedUser.map( u => {
-                
-                return (
-                    <div>Welcome {u.email}!</div>
-                )
-            })}
         </LoginContainer>
     )
 }

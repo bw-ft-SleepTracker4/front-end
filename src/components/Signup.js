@@ -1,5 +1,5 @@
 import React from 'react'
-import { signupUser } from './api/user'
+import { signupUser } from '../api/user'
 import {
   Form,
   Input,

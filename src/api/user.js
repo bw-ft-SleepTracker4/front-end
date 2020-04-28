@@ -11,10 +11,15 @@ export const client = authToken => {
 
 export const signupUser = async (email, password) => {
   client()
-    .post('/auth/login', {username: email, password})
+    .post('/auth/register', { username: email, password: password })
     .then(res => {
       console.log(res.data)
       // TODO: potentially return user to redux store
       localStorage.setItem('token', res.data.token)
   })
+}
+
+export const loginUser = async (email, password) => {
+  client()
+    .post('/auth/')
 }

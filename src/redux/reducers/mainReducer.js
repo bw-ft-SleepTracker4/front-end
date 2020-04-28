@@ -25,6 +25,11 @@ export const reducer = (state = initialState(), action) => {
           password: action.payload
         }
       }
+    case actionTypes.SET_USER_LOGIN:
+      return {
+        ...state,
+        user: action.payload
+      }
     default:
       return state
   }
