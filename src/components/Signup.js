@@ -2,30 +2,27 @@ import React from 'react'
 import { signupUser } from '../api/user'
 import styled from 'styled-components'
 
-const submitSignup = (e, email, password) => {
-  e.preventDefault()
-  signupUser(email, password).catch(err => console.error(`error: ${err}`))
-}
-
 const Signup = (props) => {
+  const submitSignup = e => {
+    e.preventDefault()
+    signupUser(props.email, props.password).catch(err => console.error(`error: ${err}`))
+  }
+
   return(
     <SignupContainer>
       <div className='contain'>
         <div className='signupForm'>
           <h1>Sign Up</h1>
           <form>
-              <label className='inputContainer'><input type="name" name="username" value={props.username} onChange={props.handleUsernameChange} placeholder="Full Name" /></label>
               <label className='inputContainer'><input type="email" name="email" value={props.email} onChange={props.handleEmailChange} placeholder="Email" /></label>
               <label className='inputContainer'><input type="password" name="password" value={props.password} onChange={props.handlePasswordChange} placeholder="Password" /></label>
           </form>
-          <button>Submit</button>
+          <button onClick={submitSignup}>Submit</button>
         </div>
       </div>
     </SignupContainer>
   )
 }
-
-
 
 // STYLED-COMPONENTS //
 const SignupContainer = styled.div`

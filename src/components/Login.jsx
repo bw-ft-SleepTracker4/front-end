@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { loginUser } from '../api/user'
 import styled from 'styled-components'
 import * as yup from 'yup'
 
@@ -11,8 +12,6 @@ const formSchema = yup.object().shape({
         .string()
         .required('⚠️ A PASSWORD IS REQUIRED')
 })
-// -------- # --------- //
-
 
 const Login = props => {
     const [ loginDisabled, setLoginDisabled ] = useState(true)
@@ -69,9 +68,8 @@ const Login = props => {
     // SUBMIT BUTTON EVENT HANDLER
     const onLogin = e => {
         e.preventDefault()
+        loginUser(props.email, props.password).catch(err => console.error(`error: ${err}`))
     }
-
-    
 
     return (
         <LoginContainer>
@@ -81,28 +79,26 @@ const Login = props => {
                 <div className='loginForm'>
                     <h1>Login</h1>
                     <form>
-                    <label className='inputContainer'><input
-                    type='text'
-                    name='email'
-                    placeholder='Email'
-                    value={props.user.email}
-                    onChange={onInputChange}
-                    >
-                    </input></label>
+                    <label className='inputContainer'>
+                        <input
+                            type='text'
+                            name='email'
+                            placeholder='Email'
+                            value={props.user.email}
+                            onChange={onInputChange} />
+                    </label>
 
-                    <label className='inputContainer'><input
-                    type='password'
-                    name='password'
-                    placeholder='Password'
-                    value={props.user.password}
-                    onChange={onInputChange}
-                    >
-                </input></label>
-                </form>
-                <button onClick={onLogin} disabled={loginDisabled}>Login</button>
-
+                    <label className='inputContainer'>
+                        <input
+                            type='password'
+                            name='password'
+                            placeholder='Password'
+                            value={props.user.password}
+                            onChange={onInputChange} />
+                    </label>
+                    </form>
+                    <button onClick={onLogin} disabled={loginDisabled}>Login</button>
                 </div>
-
             </div>
         </LoginContainer>
     )
