@@ -24,7 +24,11 @@ const Signup = (props) => {
 
 // STYLED-COMPONENTS //
 const SignupContainer = styled.div`
-  background-image: linear-gradient(180deg, DarkSlateBlue 0%, DarkSalmon 100%);
+  background-image: url('https://images.pexels.com/photos/627823/pexels-photo-627823.jpeg');
+  background-size: 100% 100%;
+  
+  
+  
 
   .contain {
     display: flex;
@@ -38,10 +42,12 @@ const SignupContainer = styled.div`
       width: 50%;
       height: 60%;
       align-self: center;
-      background-color: rgba(26, 26, 26, 0.381);
+      background-color: rgba(26, 26, 26, 0.481);
       display: flex;
       flex-direction: column;
       justify-content: center;
+      backdrop-filter: blur(2px);
+      
       
       
         h1 {
