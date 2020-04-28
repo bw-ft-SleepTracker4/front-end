@@ -93,34 +93,37 @@ const Login = props => {
             {PrintErr} {/* DISPLAYS ERROR MESSAGE */}
 
             <div className='contain'>
-            <h1>Login</h1>
-            <form>
-                <label className='inputContainer'><input 
+                <div className='loginForm'>
+                    <h1>Login</h1>
+                    <form>
+                    <label className='inputContainer'><input 
                     type='text'
                     name='email'
                     placeholder='Email'
                     value={loginFormValues.email}
                     onChange={onInputChange}
                     >
-                </input></label>
+                    </input></label>
 
-                <label className='inputContainer'><input
+                    <label className='inputContainer'><input
                     type='password'
                     name='password'
                     placeholder='Password'
                     value={loginFormValues.password}
                     onChange={onInputChange}
                     >
-                </input></label>
-            </form>
-            <button onClick={onLogin} disabled={loginDisabled}>Login</button>
+                    </input></label>
+                </form>
+                 <button onClick={onLogin} disabled={loginDisabled}>Login</button>
 
-            {loggedUser.map( u => { // OPTIONAL MESSAGE
+                {loggedUser.map( u => { // OPTIONAL MESSAGE
                 
-                return (
-                    <div>Welcome {u.email}!</div>  //
-                )
-            })} 
+                    return (
+                        <div>Welcome {u.email}!</div>  //
+                    )
+                })} 
+
+                </div>
 
             </div>
         </LoginContainer>
@@ -129,9 +132,10 @@ const Login = props => {
 
 // STYLED COMPONENTS //
 const LoginContainer = styled.div`
-
+    background-image: linear-gradient(130deg, DarkSlateBlue 0%, DarkSalmon 100%);
+    
     .error{
-        background-color: red;
+        background-color: rgb(223, 71, 71);
         color: white;
         font-size: .8rem;
         text-align: center;
@@ -143,21 +147,28 @@ const LoginContainer = styled.div`
     .contain {
     display: flex;
     justify-content: center;
-    flex-direction: column;
     text-align: center;
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     
         
-    
-
-        h1 {
-            width: 100%;
-        }
-        form {
+        .loginForm{
+            width: 50%;
+            height: 60%;
+            align-self: center;
+            background-color: rgba(26, 26, 26, 0.381);
             display: flex;
             flex-direction: column;
-
+            justify-content: center;
+            
+ 
+            h1 {
+            width: 100%;
+            color: white;
+            }
+            form {
+            display: flex;
+            flex-direction: column;
             
             .inputContainer {
                 width: 100%;
@@ -165,11 +176,12 @@ const LoginContainer = styled.div`
                 
                 input {
                     padding: 1%;
-                    width: 20%;
+                    width: 40%;
                     
                 }
             }
         }
+
         button {
             width: 10%;
             align-self: center;
@@ -178,16 +190,13 @@ const LoginContainer = styled.div`
             outline: none;
             margin-top: 1%;
 
-            &:hover:enabled {
-                background-color: black;
-                color: white;
-                cursor: pointer;
-                
-                
-            }
-            
+                &:hover:enabled {
+                    background-color: black;
+                    color: white;
+                    cursor: pointer;  
+                }
+
         }
-    
     }
 `
 
