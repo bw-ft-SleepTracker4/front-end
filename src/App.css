@@ -20,6 +20,7 @@
 .logo{
   font-size: 2rem;
   font-family: 'Montserrat';
+  width: 45%;
 }
 .links {
   flex-grow: 1;

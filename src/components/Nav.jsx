@@ -6,7 +6,7 @@ const Navigation = props => {
     const state = store.getState()
     return (
         <nav className='navC'>
-            <h4 className='logo'><Link className='navLink' to='/'>Sleep Tracker</Link></h4>
+            <h4 className='logo'><Link className='navLink' to='/'>SleepTracker</Link></h4>
             <div className='links'>
                 <Link className='navLink' to='/home'>Home</Link>
                 {state.user.hasToken ?
