@@ -4,7 +4,6 @@ import BarGraph from './homepage-components/BarGraph'
 import Emoji from './Emoji'
 
 const Homepage = () => {
-
   const [ date, setDate ] = useState()
   const [ modalShow, setModalShow ] = useState(false)
 
@@ -50,7 +49,10 @@ const Homepage = () => {
       </div>
 
       <div className='graphDataContainer'>
-        <BarGraph />
+        <h1>Sleep Data</h1>
+        <div className="bar-graph">
+          <BarGraph />
+        </div>
       </div>
 
       <div onClick={modalHandlerOpen} className='newDataContainer'>
@@ -139,8 +141,18 @@ const HomepageContainer = styled.div`
 
   .graphDataContainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding: 8% 5%;
+
+    h1 {
+      margin-right: 900px;
+    }
+
+    .bar-graph {
+      padding-top: 30px;
+    }
   }
 
 
