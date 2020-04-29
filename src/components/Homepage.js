@@ -87,10 +87,10 @@ const Homepage = () => {
           </form>
           <h3>How are you feeling?</h3>
           <div className='moodsContainer'>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="🙁" label="sad emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😡" label="angry emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😷" label="sick emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😴" label="sleepy emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="☹️" label="sad emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😕" label="angry emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😐" label="sick emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="🙂" label="sleepy emoji"/></div>
             <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😁" label="happy emoji"/></div>
           </div>
           
