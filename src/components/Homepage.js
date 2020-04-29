@@ -6,6 +6,9 @@ import Emoji from './Emoji'
 const Homepage = () => {
 
   const [ date, setDate ] = useState()
+  const [ modalShow, setModalShow ] = useState(false)
+
+  const showHideClass = modalShow ? 'modalContainer show' : 'modalContainer hide'
 
   // BASIC DATE FETCHER
   useEffect(() => {
@@ -16,6 +19,13 @@ const Homepage = () => {
 
     setDate(currentDate)
   }, [] )
+
+  const modalHandlerOpen = e => {
+    setModalShow(true)
+  }
+  const modalHandlerClose = e => {
+    setModalShow(false)
+  }
 
   return(
     <HomepageContainer>
@@ -43,8 +53,34 @@ const Homepage = () => {
         <BarGraph />
       </div>
 
-      <div className='newDataContainer'>
+      <div onClick={modalHandlerOpen} className='newDataContainer'>
         <h4>ENTER NEW DATA</h4>
+      </div>
+
+      <div className={showHideClass}>
+        <div className='modalContent'>
+          <span className='closeBtnModal' onClick={modalHandlerClose}>
+          <Emoji symbol="❌" label="close emoji"/>
+          </span>
+          <h3>How many hours did you sleep last night?</h3>
+          <form>
+            <label><input 
+              type='text'
+            ></input></label>
+          </form>
+          <h3>How would you rate your sleep?</h3>
+          <div className='moodsContainer'>
+            <div className='emojiBtn'><Emoji symbol="😁" label="test emoji"/></div>
+            <div className='emojiBtn'><Emoji symbol="🙂" label="test emoji"/></div>
+            <div className='emojiBtn'><Emoji symbol="😐" label="test emoji"/></div>
+            <div className='emojiBtn'><Emoji symbol="😒" label="test emoji"/></div>
+            <div className='emojiBtn'><Emoji symbol="😩" label="test emoji"/></div>
+          </div>
+          
+            <button>Submit</button>
+          
+        </div>
+        
       </div>
     </HomepageContainer>
   )
@@ -123,6 +159,92 @@ const HomepageContainer = styled.div`
       background-color: #86b44b;
       
     }
+  }
+
+
+  .modalContainer{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.950);
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+   
+    
+    .modalContent {
+      background-color: rgb(166, 182, 255);
+      display: flex;
+      flex-direction: column; 
+      align-items: center;
+      padding: 5%;
+      font-family: 'Spartan';
+      border-radius: 10px;
+      color: rgb(104, 104, 104);
+      position: relative;
+
+      .closeBtnModal{
+        position: absolute;
+        right: 3%;
+        top: 4%;
+        font-size: .8rem;
+        cursor: pointer;
+        
+      }
+      
+      
+      h3 {
+        padding: 2% 0;
+        font-size: 1.2rem;
+      }
+      form {
+        margin-bottom: 5%;
+
+        input {
+          padding: 0 2%;
+          font-size: .8rem;
+          
+        }
+      }
+      
+      .moodsContainer {
+        font-size: 1.7rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        
+
+        .emojiBtn{
+          margin: 2%;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 60%;
+            
+          }
+          
+          .emoji {
+          
+          }
+        }
+        
+      }
+
+      button {
+        margin-top: 5%;
+        padding: 1% 5%;
+        border-radius: 15px;
+        background-color: #59d49d;
+        outline: none;
+        
+
+        &:hover {
+          background-color: #1fa86a;
+          color: white;
+        }
+      }
+
+    }
+    
   }
 
 `
