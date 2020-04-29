@@ -1,47 +1,44 @@
 import React from 'react'
-import {  
+import {
   XYPlot,
+  VerticalGridLines,
+  HorizontalGridLines,
+  VerticalBarSeries,
   XAxis,
-  YAxis,
-  VerticalBarSeries
+  YAxis
 } from 'react-vis'
 
-const BarGraph = () => {
-    const BarSeries = VerticalBarSeries
+const mockData = [
+  {x: '04/29/20', y: 10},
+  {x: '04/30/20', y: 6},
+  {x: '05/01/20', y: 8},
+  {x: '05/02/20', y: 7},
+  {x: '05/03/20', y: 9},
+  {x: '05/04/20', y: 9},
+  {x: '05/05/20', y: 6},
+  {x: '05/06/20', y: 5},
+  {x: '05/07/20', y: 4},
+  {x: '05/08/20', y: 6}
+]
 
-    const myDATA = [
-      {id: '123', y: 400, x: 1504121437},
-      {id: '223', y: 350, x: 1504121156},
-      {id: '323', y: 310, x: 1504120874},
-      {id: '423', y: 260, x: 1504120590},
-      {id: '523', y: 210, x: 1504120306},
-      {id: '623', y: 160, x: 1504120024}
-    ];
-
-    const yDomain = myDATA.reduce(
-      (res, row) => {
-        return {
-          max: Math.max(res.max, row.y),
-          min: Math.min(res.min, row.y)
-        };
-      },
-      {max: -Infinity, min: Infinity}
-    );
-    
+export default class BarGraph extends React.Component {
+  render() {
     return (
-      <div>
-        <XYPlot
-          xType="time"
-          width={1200}
-          height={300}
-          yDomain={[yDomain.min, yDomain.max]}
+      <XYPlot
+        xType="ordinal"
+        width={1200}
+        height={450}
         >
-          <BarSeries className="vertical-bar-series-example" data={myDATA} onValueMouseOver={(datapoint, { event }) => { }} />
-          <XAxis />
-          <YAxis />
-        </XYPlot>
-      </div>
-    )
+        <XAxis />
+        <YAxis title='Hours of Sleep' />
+        <HorizontalGridLines />
+        <VerticalGridLines />
+        <VerticalBarSeries
+          color={'#626cf8'}
+          barWidth='.75'
+          data={mockData}
+        />
+      </XYPlot>
+    );
+  }
 }
-
-export default BarGraph
