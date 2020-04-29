@@ -20,12 +20,29 @@ const Homepage = () => {
     setDate(currentDate)
   }, [] )
 
+  const emojiList = document.querySelectorAll('.emojiBtn')
+
   const modalHandlerOpen = e => {
     setModalShow(true)
   }
   const modalHandlerClose = e => {
     setModalShow(false)
+    emojiList.forEach( elem => {
+      elem.classList.remove('active')
+    })
   }
+  const mojiEventHandler = e => {
+   
+    emojiList.forEach( elem => {
+      elem.classList.remove('active')
+    })
+    e.currentTarget.classList.add('active');
+    
+  }
+
+  
+  
+  
 
   return(
     <HomepageContainer>
@@ -68,13 +85,13 @@ const Homepage = () => {
               type='text'
             ></input></label>
           </form>
-          <h3>How would you rate your sleep?</h3>
+          <h3>How are you feeling?</h3>
           <div className='moodsContainer'>
-            <div className='emojiBtn'><Emoji symbol="😁" label="test emoji"/></div>
-            <div className='emojiBtn'><Emoji symbol="🙂" label="test emoji"/></div>
-            <div className='emojiBtn'><Emoji symbol="😐" label="test emoji"/></div>
-            <div className='emojiBtn'><Emoji symbol="😒" label="test emoji"/></div>
-            <div className='emojiBtn'><Emoji symbol="😩" label="test emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="🙁" label="sad emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😡" label="angry emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😷" label="sick emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😴" label="sleepy emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😁" label="happy emoji"/></div>
           </div>
           
             <button>Submit</button>
@@ -85,6 +102,8 @@ const Homepage = () => {
     </HomepageContainer>
   )
 }
+
+// STYLED COMPONENTS //
 
 const HomepageContainer = styled.div`
 
@@ -200,14 +219,14 @@ const HomepageContainer = styled.div`
         margin-bottom: 5%;
 
         input {
-          padding: 0 2%;
+          padding: 2%;
           font-size: .8rem;
           
         }
       }
       
       .moodsContainer {
-        font-size: 1.7rem;
+        font-size: 2.5rem;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -216,14 +235,14 @@ const HomepageContainer = styled.div`
         .emojiBtn{
           margin: 2%;
           cursor: pointer;
-
+          
           &:hover {
             opacity: 60%;
             
           }
           
           .emoji {
-          
+            margin: 15%;
           }
         }
         

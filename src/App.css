@@ -46,6 +46,11 @@
   display: flex;
   
 }
+.active {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 3px 10px yellow);
+  
+}
 
 /* Sign Up Form */
 /* .signup-form {
