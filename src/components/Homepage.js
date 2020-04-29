@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import styled from 'styled-components'
 import BarGraph from './homepage-components/BarGraph'
+import Emoji from './Emoji'
 
 const Homepage = () => {
 
@@ -33,7 +34,7 @@ const Homepage = () => {
         <div className='statCard'>
           <h5>Average Mood</h5>
           <div className='statInfo'>
-            <span>😇</span>
+            <Emoji symbol="😇" label="test emoji"/>
           </div>
         </div>
       </div>

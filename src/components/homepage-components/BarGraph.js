@@ -31,9 +31,8 @@ const BarGraph = () => {
     return (
       <div>
         <XYPlot
-          margin={{left: 75}}
           xType="time"
-          width={800}
+          width={1200}
           height={300}
           yDomain={[yDomain.min, yDomain.max]}
         >
