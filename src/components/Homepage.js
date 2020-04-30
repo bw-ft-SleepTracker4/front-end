@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import BarGraph from './homepage-components/BarGraph'
-import averages from '../mock_data/averages'
 import Emoji from './Emoji'
 import axios from 'axios'
+import moment from 'moment'
 import { TweenMax, Power3 } from 'gsap'
 import HomepageContainer from '../components/styles/HomepageStyle'
-import store from '../redux/store/store'
+import { connect } from 'react-redux'
+import { setUserSleepHours, setUserMood, sendUserSleepData } from '../redux/actions/actionCreators'
 
-const Homepage = () => {
-  const state = store.getState()
-  const [ date, setDate ] = useState()
+const Homepage = (props) => {
   const [ modalShow, setModalShow ] = useState(false)
   const [ quoteOfTheDay, setQuoteOfTheDay ] = useState([])
   let modalCont = useRef(null)
@@ -18,36 +17,23 @@ const Homepage = () => {
     axios.get('http://quotes.rest/qod.json')
       .then ( r => {
         setQuoteOfTheDay(r.data.contents.quotes[0]);
-        
       })
       .catch( err => {
         console.log(err);
-        
       })
   },[])
-        
+  
   const showHideClass = modalShow ? 'modalContainer show' : 'modalContainer hide'
 
-  // BASIC DATE FETCHER
-  useEffect(() => {
-    const date = new Date()
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    const currentDate = `${days[date.getDay()]} - ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
-
-    setDate(currentDate)
-  }, [] )
-
-  /*  take email name if real name doesn't exist
-      we can print name with: emailName[0]
-      we can print everything from their @ to the last string with: emailName[1]
-  */
+  /*take email name if real name doesn't exist
+    we can print name with: emailName[0]
+    we can print everything from their @ to the last string with: emailName[1] */
   const email = localStorage.getItem('email')
   const removeWelcome = email.replace('Welcome ', '')
   const emailName = removeWelcome.split('@')
 
   // Calculating Emoji for Average Mood
-  const averageMoodData = averages.map(mood => mood['mood'])
+  const averageMoodData = props.graphData.map(mood => mood['mood'])
   let averageMood = 0
   averageMoodData.forEach(mood => {
     averageMood += mood / 10
@@ -71,7 +57,7 @@ const Homepage = () => {
   }
 
   // Calculating Number for Average Hours Slept
-  const averageSleepData = averages.map(sleep => sleep['sleep_hours'])
+  const averageSleepData = props.graphData.map(sleep => sleep['sleep_hours'])
   let averageSleep = 0
   averageSleepData.forEach(hour => {
     averageSleep += hour / 10 
@@ -86,6 +72,7 @@ const Homepage = () => {
       modalCont, .8, {opacity: 0, y: 300, ease: Power3.easeInOut}
     )
   }
+
   const modalHandlerClose = e => {
     setModalShow(false)
     emojiList.forEach( elem => {
@@ -93,13 +80,13 @@ const Homepage = () => {
     })
     
   }
+
   const mojiEventHandler = e => {
-   
     emojiList.forEach( elem => {
       elem.classList.remove('active')
     })
     e.currentTarget.classList.add('active');
-    
+    props.setUserMood(e.target.id)
   }
 
   // ONCLICK OUTSIDE MODAL, CLOSE MODAL
@@ -113,8 +100,8 @@ const Homepage = () => {
   return(
     <HomepageContainer>
       <div className='dashHeader'>
-        <h1>Welcome, {state.user.name ? state.user.name : emailName[0]}!</h1>
-        <h3>{date}</h3>
+        <h1>Welcome, {props.name ? props.name : emailName[0]}!</h1>
+        <h3>{moment().format('dddd [-] MMMM Do, YYYY')}</h3>
         {/* <h5>{quoteOfTheDay.quote}</h5>
         <h6>{quoteOfTheDay.author}</h6> */}
 
@@ -142,7 +129,7 @@ const Homepage = () => {
       <div className='graphDataContainer'>
         <h1>Sleep Data</h1>
         <div className="bar-graph">
-          <BarGraph />
+          <BarGraph data={props.graphData} />
         </div>
       </div>
 
@@ -159,18 +146,23 @@ const Homepage = () => {
           <form>
             <label><input 
               type='text'
+              value={props.userSleepData_hours}
+              onChange={e => props.setUserSleepHours(e.target.value)}
             ></input></label>
           </form>
           <h3>How are you feeling?</h3>
           <div className='moodsContainer'>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="☹️" label="sad emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😕" label="kinda sad emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😐" label="ok emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="🙂" label="kinda happy emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😁" label="happy emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="☹️" id="1" label="sad emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😕" id="2" label="kind of sad emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😐" id="3" label="ok emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="🙂" id="4" label="kind of happy emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😁" id="5" label="happy emoji"/></div>
           </div>
           
-            <button onClick={modalHandlerClose}>Submit</button>
+          <button onClick={() => {
+              props.sendUserSleepData(props.userSleepData)
+              modalHandlerClose()
+              }} >Submit</button>
           
         </div>
       </div>
@@ -178,4 +170,15 @@ const Homepage = () => {
   )
 }
 
-export default Homepage
+const mapStateToProps = state => {
+  return {
+    name: state.user.name,
+    email: state.user.email,
+    graphData: state.graphData,
+    userSleepData: state.userSleepData,
+    userSleepData_hours: state.userSleepData.hoursOfSleep,
+    userSleepData_mood: state.userSleepData.mood
+  }
+}
+
+export default connect( mapStateToProps, { setUserSleepHours, setUserMood, sendUserSleepData })(Homepage)
