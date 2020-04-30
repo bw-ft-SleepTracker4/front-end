@@ -2,6 +2,7 @@ import React from 'react'
 
 const Emoji = props => (
     <span
+        id={props.id}
         className="emoji"
         role="img"
         aria-label={props.label ? props.label : ""}

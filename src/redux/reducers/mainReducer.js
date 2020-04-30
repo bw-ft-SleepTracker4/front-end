@@ -1,11 +1,19 @@
 import actionTypes from '../actions/actionTypes'
+import graph from '../../mock_data/graph'
+import moment from 'moment'
 
 export const initialState = () => ({
+  graphData: [...graph],
   user: {
     name: '',
     email: '',
     password: '',
     hasToken: localStorage.getItem('token') || null
+  },
+  userSleepData: {
+    date: moment().format('l'),
+    sleep_hours: null,
+    mood: null
   }
 })
 
@@ -57,6 +65,27 @@ export const reducer = (state = initialState(), action) => {
           password: '',
           hasToken: null
         }
+      }
+    case actionTypes.SET_USER_SLEEP_HOURS:
+      return {
+        ...state,
+        userSleepData: {
+          ...state.userSleepData,
+          sleep_hours: action.payload
+        }
+      }
+    case actionTypes.SET_USER_MOOD:
+      return {
+        ...state,
+        userSleepData: {
+          ...state.userSleepData,
+          mood: action.payload
+        }
+      }
+    case actionTypes.SEND_USER_SLEEP_DATA:
+      return {
+        ...state,
+        graphData: [...state.graphData, action.payload]
       }
     default:
       return state
