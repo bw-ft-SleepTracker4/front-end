@@ -170,7 +170,7 @@ const Homepage = () => {
             <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😁" label="happy emoji"/></div>
           </div>
           
-            <button>Submit</button>
+            <button onClick={modalHandlerClose}>Submit</button>
           
         </div>
       </div>
