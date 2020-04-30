@@ -21,8 +21,10 @@ const Homepage = () => {
 
   const emojiList = document.querySelectorAll('.emojiBtn')
 
+  // HANDLERS
   const modalHandlerOpen = e => {
     setModalShow(true)
+    
   }
   const modalHandlerClose = e => {
     setModalShow(false)
@@ -38,7 +40,14 @@ const Homepage = () => {
     e.currentTarget.classList.add('active');
     
   }
-
+  // ONCLICK OUTSIDE MODAL, CLOSE MODAL
+  window.onclick = function(e) {
+    const modal = document.querySelector('.modalContainer')
+    if (e.target === modal) {
+      setModalShow(false)
+    }
+  }
+  
   
   
   
