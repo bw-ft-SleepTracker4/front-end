@@ -14,7 +14,7 @@ export const client = () => {
 
 export const signupUser = async (name, email, password) => {
   await client()
-    .post('/auth/register', { name, username: email, password: password })
+    .post('/auth/register', { name, username: email, password })
     .then(res => {
       // TODO: potentially return user to redux store
       console.log(res.data)
