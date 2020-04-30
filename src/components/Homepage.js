@@ -1,13 +1,16 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import BarGraph from './homepage-components/BarGraph'
 import Emoji from './Emoji'
 import axios from 'axios'
+import { TweenMax, Power3 } from 'gsap'
 
 const Homepage = () => {
   const [ date, setDate ] = useState()
   const [ modalShow, setModalShow ] = useState(false)
   const [ quoteOfTheDay, setQuoteOfTheDay ] = useState([])
+  let modalCont = useRef(null)
+
 
   useEffect(() => {
     axios.get('http://quotes.rest/qod.json')
@@ -20,7 +23,6 @@ const Homepage = () => {
         
       })
   },[])
-  
         
   const showHideClass = modalShow ? 'modalContainer show' : 'modalContainer hide'
 
@@ -39,13 +41,16 @@ const Homepage = () => {
   // HANDLERS
   const modalHandlerOpen = e => {
     setModalShow(true)
-    
+    TweenMax.from(
+      modalCont, .8, {opacity: 0, y: 300, ease: Power3.easeInOut}
+    )
   }
   const modalHandlerClose = e => {
     setModalShow(false)
     emojiList.forEach( elem => {
       elem.classList.remove('active')
     })
+    
   }
   const mojiEventHandler = e => {
    
@@ -68,8 +73,8 @@ const Homepage = () => {
       <div className='dashHeader'>
         <h1>Welcome, user!</h1>
         <h3>{date}</h3>
-        <h5>{quoteOfTheDay.quote}</h5>
-        <h6>{quoteOfTheDay.author}</h6>
+        {/* <h5>{quoteOfTheDay.quote}</h5>
+        <h6>{quoteOfTheDay.author}</h6> */}
 
         {/* IN CASE API LOCKED OUT */}
         <h5>I am an optimist. It does not seem too much use being anything else....</h5> 
@@ -104,7 +109,7 @@ const Homepage = () => {
       </div>
 
       <div className={showHideClass}>
-        <div className='modalContent'>
+        <div className='modalContent' ref={ e => {modalCont = e}}>
           <span className='closeBtnModal' onClick={modalHandlerClose}>
           <Emoji symbol="❌" label="close emoji"/>
           </span>
@@ -200,6 +205,8 @@ const HomepageContainer = styled.div`
 
       .statInfo {
         font-size: 6rem;
+        color: #7ba04b;
+        font-family: 'Montserrat';
         
       }
     }
