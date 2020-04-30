@@ -52,18 +52,12 @@ const Login = props => {
             .reach(formSchema, name)
             .validate(value)
             .then( valid => {
-                setErrors({
-                    ...errors,
-                    [name]: ''
-                })
+                setErrors()
                 setErrorsActive(false)
             })
             .catch( error => {
-                setErrors({
-                    ...errors,
-                    error
-                })
-                setErrorsActive(false)
+                setErrors(error.message)
+                setErrorsActive(true)
             })
     }
 
