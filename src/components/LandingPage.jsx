@@ -19,18 +19,18 @@ const LandingPage = props => {
             <h3 className='ftBlock'>FEATURES</h3>
             <section id='features'>
                 <div className='ftCard'>
-                    <h4>Title</h4>
-                    <h6>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut, necessitatibus!</h6>
+                    <h4>Sleep Tracking</h4>
+                    <h6>Keep track of your sleeping schedule any time, in the convenience of your PC or mobile phone.</h6>
                 </div>
 
                 <div className='ftCard'>
-                    <h4>Title</h4>
-                    <h6>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut, necessitatibus!</h6>
+                    <h4>Analytical Data</h4>
+                    <h6>As you track your progress, get access to a more visual representation of your sleeping habits.</h6>
                 </div>
 
                 <div className='ftCard'>
-                    <h4>Title</h4>
-                    <h6>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut, necessitatibus!</h6>
+                    <h4>Mood Tracking</h4>
+                    <h6>Keep track of your daily mood and get mood averages weekly.</h6>
                 </div>
             </section>
             <h3 className='ftBlock'>TESTIMONIALS</h3>
@@ -40,8 +40,8 @@ const LandingPage = props => {
                         <img src={require('../assets/portraitOne.jpg')} alt='person portrait'/>
                     </div>
                     <div className='tInfo'>
-                        <h5>Name</h5>
-                        <h6>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum sint ipsam vel.</h6>
+                        <h5>Jamie</h5>
+                        <h6>I use SleepTracker to help me stay consistent with my sleeping routine. I love that it's easy to use and helps me stay on top of things.</h6>
                     </div>
                 </div>
 
@@ -50,8 +50,8 @@ const LandingPage = props => {
                         <img src={require('../assets/portraitTwo.jpg')} alt='person portrait'/>
                     </div>
                     <div className='tInfo'>
-                        <h5>Name</h5>
-                        <h6>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum sint ipsam vel.</h6>
+                        <h5>Henry</h5>
+                        <h6>I'm not the most organized person and the sound of keeping track of my sleep schedule sounded tedious. I'm glad I stumbled upon SleepTracker because it takes out the tedious part of tracking my sleep. I immediately signed up and my sleeping routine has never been better.</h6>
                     </div>
                 </div>
             </section>
