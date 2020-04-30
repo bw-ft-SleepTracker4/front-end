@@ -2,11 +2,26 @@ import React, { useState, useEffect} from 'react'
 import styled from 'styled-components'
 import BarGraph from './homepage-components/BarGraph'
 import Emoji from './Emoji'
+import axios from 'axios'
 
 const Homepage = () => {
   const [ date, setDate ] = useState()
   const [ modalShow, setModalShow ] = useState(false)
+  const [ quoteOfTheDay, setQuoteOfTheDay ] = useState([])
 
+  useEffect(() => {
+    axios.get('http://quotes.rest/qod.json')
+      .then ( r => {
+        setQuoteOfTheDay(r.data.contents.quotes[0]);
+        
+      })
+      .catch( err => {
+        console.log(err);
+        
+      })
+  },[])
+  
+        
   const showHideClass = modalShow ? 'modalContainer show' : 'modalContainer hide'
 
   // BASIC DATE FETCHER
@@ -47,16 +62,19 @@ const Homepage = () => {
       setModalShow(false)
     }
   }
-  
-  
-  
-  
 
   return(
     <HomepageContainer>
       <div className='dashHeader'>
         <h1>Welcome, user!</h1>
         <h3>{date}</h3>
+        <h5>{quoteOfTheDay.quote}</h5>
+        <h6>{quoteOfTheDay.author}</h6>
+
+        {/* IN CASE API LOCKED OUT */}
+        <h5>I am an optimist. It does not seem too much use being anything else....</h5> 
+        <h6>- Winston Churchill</h6>
+
       </div>
       <div className='stats'> 
         <div className='statCard'>
@@ -138,8 +156,25 @@ const HomepageContainer = styled.div`
       font-size: 4rem;
     }
     h3 {
+      text-align: center;
+      width: 100%;
       font-size: 1.5rem;
       color: #d6d6d7;
+    }
+    h5 {
+      width: 100%;
+      font-size: .8rem;
+      color: #d6d6d7;
+      text-align: center;
+      margin-top: 1%;
+      font-style: italic;
+    }
+    h6 {
+      width: 100%;
+      font-size: .8rem;
+      color: white;
+      text-align: center;
+      margin-top: .5%;
     }
     
   }
@@ -175,7 +210,8 @@ const HomepageContainer = styled.div`
     padding: 8% 5%;
 
     h1 {
-      margin-right: 900px;
+      font-family: 'Raleway';
+      color: grey;
     }
 
     .bar-graph {
