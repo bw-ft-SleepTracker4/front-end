@@ -1,4 +1,5 @@
 import React from 'react'
+import graph from '../../mock_data/graph.js'
 import {
   XYPlot,
   VerticalGridLines,
@@ -8,18 +9,8 @@ import {
   YAxis
 } from 'react-vis'
 
-const mockData = [
-  {x: '04/29/20', y: 10},
-  {x: '04/30/20', y: 6},
-  {x: '05/01/20', y: 8},
-  {x: '05/02/20', y: 7},
-  {x: '05/03/20', y: 9},
-  {x: '05/04/20', y: 9},
-  {x: '05/05/20', y: 6},
-  {x: '05/06/20', y: 5},
-  {x: '05/07/20', y: 4},
-  {x: '05/08/20', y: 6}
-]
+// TODO: bring into render function when backend is up
+const formattedGraphData = graph.map(entry => ({ x: entry.date, y: entry.sleep_hours }))
 
 export default class BarGraph extends React.Component {
   render() {
@@ -35,8 +26,8 @@ export default class BarGraph extends React.Component {
         <VerticalGridLines />
         <VerticalBarSeries
           color={'#626cf8'}
-          barWidth='.75'
-          data={mockData}
+          barWidth={.75}
+          data={formattedGraphData}
         />
       </XYPlot>
     );

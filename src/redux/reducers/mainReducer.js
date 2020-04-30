@@ -48,6 +48,16 @@ export const reducer = (state = initialState(), action) => {
           hasToken: action.payload
         }
       }
+    case actionTypes.LOG_USER_OUT:
+      return {
+        ...state,
+        user: {
+          name: '',
+          email: '',
+          password: '',
+          hasToken: null
+        }
+      }
     default:
       return state
   }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
-import styled from 'styled-components'
 import BarGraph from './homepage-components/BarGraph'
+import averages from '../mock_data/averages'
+import styled from 'styled-components'
 import Emoji from './Emoji'
 
 const Homepage = () => {
@@ -18,6 +19,37 @@ const Homepage = () => {
 
     setDate(currentDate)
   }, [] )
+
+  // Calculating Emoji for Average Mood
+  const averageMoodData = averages.map(mood => mood['mood'])
+  let averageMood = 0
+  averageMoodData.forEach(mood => {
+    averageMood += mood / 10
+  })
+
+  const moodToEmoji = mood => {
+    switch(mood) {
+      case 1:
+        return <Emoji symbol="☹️" label="sad emoji"/>
+      case 2:
+        return <Emoji symbol="😕" label="kinda sad emoji"/>
+      case 3:
+        return <Emoji symbol="😐" label="ok emoji"/>
+      case 4: 
+        return <Emoji symbol="🙂" label="kinda happy emoji"/>
+      case 5:
+        return <Emoji symbol="😁" label="happy emoji"/>
+      default:
+        return 'no mood set yet!'
+    }
+  }
+
+  // Calculating Number for Average Hours Slept
+  const averageSleepData = averages.map(sleep => sleep['sleep_hours'])
+  let averageSleep = 0
+  averageSleepData.forEach(hour => {
+    averageSleep += hour / 10 
+  })
 
   const emojiList = document.querySelectorAll('.emojiBtn')
 
@@ -40,6 +72,7 @@ const Homepage = () => {
     e.currentTarget.classList.add('active');
     
   }
+
   // ONCLICK OUTSIDE MODAL, CLOSE MODAL
   window.onclick = function(e) {
     const modal = document.querySelector('.modalContainer')
@@ -47,10 +80,6 @@ const Homepage = () => {
       setModalShow(false)
     }
   }
-  
-  
-  
-  
 
   return(
     <HomepageContainer>
@@ -62,14 +91,14 @@ const Homepage = () => {
         <div className='statCard'>
           <h5>Average Hours Slept</h5>
           <div className='statInfo'>
-            25
+            {Math.floor(averageSleep)}
           </div>
         </div>
 
         <div className='statCard'>
           <h5>Average Mood</h5>
           <div className='statInfo'>
-            <Emoji symbol="😇" label="test emoji"/>
+            {moodToEmoji(Math.floor(averageMood))}
           </div>
         </div>
       </div>
@@ -99,16 +128,15 @@ const Homepage = () => {
           <h3>How are you feeling?</h3>
           <div className='moodsContainer'>
             <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="☹️" label="sad emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😕" label="angry emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😐" label="sick emoji"/></div>
-            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="🙂" label="sleepy emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😕" label="kinda sad emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😐" label="ok emoji"/></div>
+            <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="🙂" label="kinda happy emoji"/></div>
             <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😁" label="happy emoji"/></div>
           </div>
           
             <button>Submit</button>
           
         </div>
-        
       </div>
     </HomepageContainer>
   )
