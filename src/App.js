@@ -17,6 +17,7 @@ function App(props) {
   const handleLogOut = () => {
     props.logUserOut()
      localStorage.removeItem('token')
+     localStorage.removeItem('email')
   }
 
   return (

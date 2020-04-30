@@ -15,11 +15,12 @@ export const client = () => {
 export const signupUser = async (name, email, password) => {
   await client()
     .post('/auth/register', { name, username: email, password })
-    .then(res => {
-      // TODO: potentially return user to redux store
+    .then(async res => {
       console.log(res.data)
+      // TODO: potentially return user to redux store
       store.dispatch(setUserHasToken(res.data.token))
       localStorage.setItem('token', res.data.token)
+      await localStorage.setItem('email', res.data.data.username)
     })
 }
 
@@ -28,8 +29,8 @@ export const loginUser = async (email, password) => {
     .post('/auth/login', { username: email, password })
     .then(res => {
       // TODO: potentially return user to redux store
-      console.log(res.data)
       store.dispatch(setUserHasToken(res.data.token))
       localStorage.setItem('token', res.data.token)
+      localStorage.setItem('email', res.data.message)
   })
 }
