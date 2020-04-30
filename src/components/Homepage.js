@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
 import BarGraph from './homepage-components/BarGraph'
 import averages from '../mock_data/averages'
-import styled from 'styled-components'
 import Emoji from './Emoji'
 import axios from 'axios'
 import { TweenMax, Power3 } from 'gsap'
 import HomepageContainer from '../components/styles/HomepageStyle'
+import store from '../redux/store/store'
 
 const Homepage = () => {
+  const state = store.getState()
   const [ date, setDate ] = useState()
   const [ modalShow, setModalShow ] = useState(false)
   const [ quoteOfTheDay, setQuoteOfTheDay ] = useState([])
   let modalCont = useRef(null)
-
 
   useEffect(() => {
     axios.get('http://quotes.rest/qod.json')
@@ -37,6 +37,14 @@ const Homepage = () => {
 
     setDate(currentDate)
   }, [] )
+
+  /*  take email name if real name doesn't exist
+      we can print name with: emailName[0]
+      we can print everything from their @ to the last string with: emailName[1]
+  */
+  const email = localStorage.getItem('email')
+  const removeWelcome = email.replace('Welcome ', '')
+  const emailName = removeWelcome.split('@')
 
   // Calculating Emoji for Average Mood
   const averageMoodData = averages.map(mood => mood['mood'])
@@ -105,7 +113,7 @@ const Homepage = () => {
   return(
     <HomepageContainer>
       <div className='dashHeader'>
-        <h1>Welcome, user!</h1>
+        <h1>Welcome, {state.user.name ? state.user.name : emailName[0]}!</h1>
         <h3>{date}</h3>
         {/* <h5>{quoteOfTheDay.quote}</h5>
         <h6>{quoteOfTheDay.author}</h6> */}
