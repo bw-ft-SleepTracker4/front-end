@@ -60,19 +60,24 @@ const LandingContainer = styled.div`
         .ftCard{
             text-align: center;
             font-family: 'Raleway';
-            background-color: white;
+            background-color: #aea4da;
             filter: drop-shadow(0 3px 4px black);
             width: 28%;
             border-radius: 15px;
-            padding: 3%;
+            padding: 5%;
+            
 
             h4 {
                 border-bottom: 1px solid grey;
                 font-weight: bold;
                 padding-bottom: 2%;
+                color: #644ec6;
             }
             h6 {
                 padding-top: 6%;
+                color: #ededed;
+                font-size: 1rem;
+                
             }    
         }
     }

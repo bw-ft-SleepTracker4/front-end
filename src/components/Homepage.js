@@ -159,7 +159,10 @@ const Homepage = (props) => {
             <div onClick={mojiEventHandler} className='emojiBtn'><Emoji symbol="😁" id="5" label="happy emoji"/></div>
           </div>
           
-            <button onClick={() => props.sendUserSleepData(props.userSleepData)} >Submit</button>
+          <button onClick={() => {
+              props.sendUserSleepData(props.userSleepData)
+              modalHandlerClose()
+              }} >Submit</button>
           
         </div>
       </div>
