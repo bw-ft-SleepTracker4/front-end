@@ -197,6 +197,11 @@ const HomepageContainer = styled.div`
         font-family: 'Raleway';
         padding: 5%;
       }
+
+      .statInfo {
+        font-size: 6rem;
+        
+      }
     }
     
   }
